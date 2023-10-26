@@ -9,7 +9,7 @@
           <div class="w-full h-full px-8 flex flex-col justify-center">
               <div>
                 @foreach ($post->tags as $tag)
-                  <a href="" class="inline-block px-3 h-6 bg-gray-600 text-white rounded-full">
+                  <a href="" class="inline-block px-3 h-6 bg-{{$tag->color}}-600 text-white rounded-full">
                     {{ $tag->name }}
                   </a>
                 @endforeach
@@ -23,6 +23,10 @@
         </article>
       @endforeach
 
+    </div>
+
+    <div class="mt-4">
+      {{$posts->links()}}
     </div>
 
   </div>
