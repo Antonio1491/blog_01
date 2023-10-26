@@ -20,4 +20,12 @@ export default {
     },
 
     plugins: [forms, typography],
+
+    //Modificaciones personalizadas de algún elemento de tailwind
+    corePlugins:{
+        container: false,
+    }
+
+
+
 };
