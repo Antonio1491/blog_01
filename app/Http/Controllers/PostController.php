@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -39,6 +40,15 @@ class PostController extends Controller
                         ->paginate(6);   //cantidad de registros por pagina
         
         return view('posts.category', compact('posts', 'category'));
+
+    }
+
+    public function tag(Tag $tag)
+    {
+
+        $posts = $tag->posts()->where('status', 2)->latest('id')->paginate(4);
+
+        return view('posts.tag', compact('posts', 'tag'));
 
     }
 }

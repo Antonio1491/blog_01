@@ -19,6 +19,8 @@ Route::get('post/{post}', [PostController::class, 'show'])->name('posts.show');
 
 Route::get('category/{category}', [PostController::class, 'category'])->name('posts.category');
 
+Route::get('tag/{tag}', [PostController::class, 'tag'])->name('posts.tag');
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
