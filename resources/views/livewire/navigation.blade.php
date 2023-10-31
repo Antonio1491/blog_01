@@ -14,7 +14,7 @@
                
                 @foreach ($categories as $category)
                     
-                  <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                  <a href="{{route('posts.category', $category)}}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
                     {{$category->name}}
                   </a>
 
