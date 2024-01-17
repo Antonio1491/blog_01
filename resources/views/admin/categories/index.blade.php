@@ -7,13 +7,44 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
-@stop
+    <div class="card">
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
+        <div class="card-header">
+            <a class="btn btn-secondary" href="{{route('admin.categories.create')}}">
+                Agregar Categoría
+            </a>
+        </div>
 
-@section('js')
-    <script> console.log('Hi!'); </script>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th colspan="2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($categories as $category)
+                        <tr>
+                            <td>{{$category->id}}</td>
+                            <td>{{$category->name}}</td>
+                            <td width="10px">
+                                <a href="{{route('admin.categories.edit', $category)}}" class="btn btn-sm btn-primary">
+                                    Editar
+                                </a>
+                            </td>
+                            <td width="10px">
+                                <form action="{{route('admin.categories.destroy', $category)}}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 @stop
