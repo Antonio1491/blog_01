@@ -13,6 +13,12 @@ class Category extends Model
     protected $fillable = ['name', 'slug'];
 
 
+    //muestra el slug en la url en lugar del id
+    public function getRouteKeyName()
+    {
+        return "slug";
+    }
+
 
     //Relacioón uno a muchos
     public function posts()
