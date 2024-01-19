@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
+use App\Models\Tag;
+
 
 class PostController extends Controller
 {
@@ -21,7 +24,12 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+
+        // genera un array tomando unicamente el campo name tomando como key el id
+        $categories = Category::pluck('name', 'id');
+        $tags = Tag::all();
+
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**

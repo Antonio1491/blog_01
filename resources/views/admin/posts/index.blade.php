@@ -3,11 +3,14 @@
 @section('title', 'Admin - Blog 01')
 
 @section('content_header')
+
+    <a class="btn btn-secondary float-right" href="{{route('admin.posts.create')}}">Nuevo post</a>
+
     <h1>Listado de post</h1>
 @stop
 
 @section('content')
-    {{-- @livewire('admin.posts.index') --}}
+
     <livewire:Admin.PostsIndex />
 @stop
 
