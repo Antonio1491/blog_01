@@ -11,6 +11,12 @@
 
 @section('content')
 
+  @if (session('info'))
+    <div class="alert alert-success">
+        <strong>{{session('info')}}</strong>
+    </div>
+  @endif
+
     <div class="card">
       <div class="card-body">
         <table class="table table-striped">
@@ -30,7 +36,7 @@
                   <a class="btn btn-primary btn-sm" href="{{route('admin.tags.edit', $tag)}}">Editar</a>
                 </td>
                 <td width="10px">
-                  <form action="{{route('admin.tags.edit', $tag)}}" method="POST">
+                  <form action="{{route('admin.tags.destroy', $tag)}}" method="POST">
                     @csrf
                     @method('delete')
                     <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>

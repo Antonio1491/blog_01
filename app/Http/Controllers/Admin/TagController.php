@@ -54,7 +54,7 @@ class TagController extends Controller
 
             $tag = Tag::create($request->all());
 
-            return redirect()->route('admin.tags.edit', compact('tag'));
+            return redirect()->route('admin.tags.edit', compact('tag'))->with('info', 'La etiqueta se creó con éxito');
     }
 
     /**
@@ -70,7 +70,17 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        return view('admin.tags.edit', compact('tag'));
+        $colors = [
+            'red' => 'Color rojo',
+            'green' => 'Color verde',
+            'yellow' => 'Color amarillo',
+            'blue' => 'Color azul',
+            'indigo' => 'Color indigo',
+            'purple' => 'Color morado',
+            'pink' => 'Color rosado'
+        ];
+
+        return view('admin.tags.edit', compact('tag', 'colors'));
     }
 
     /**
@@ -79,6 +89,17 @@ class TagController extends Controller
     public function update(Request $request, Tag $tag)
     {
         
+        $request->validate(
+            [
+                'name' => 'required',
+                'slug' => "required|unique:tags,slug,$tag->id",
+                'color' => 'required'
+            ]);
+
+        $tag->update($request->all());
+
+        return redirect()->route('admin.tags.edit',$tag)->with('info', 'La etiqueta se actualizó con éxito');
+
     }
 
     /**
@@ -86,6 +107,8 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+
+        return redirect()->route('admin.tags.index')->with('info', 'La etiqueta se eliminó con exitó');
     }
 }
