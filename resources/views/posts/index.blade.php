@@ -5,7 +5,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
       @foreach ($posts as $post)
-        <article class=" @if($loop->first) md:col-span-2 @endif w-full h-80 bg-cover bg-center" style="background-image: url({{Storage::url($post->image->url)}})">
+        <article class=" @if($loop->first) md:col-span-2 @endif w-full h-80 bg-cover bg-center" style="background-image: url(@if($post->image){{Storage::url($post->image->url)}} @else https://cdn.pixabay.com/photo/2023/09/28/16/27/door-8281982_1280.jpg @endif)">
           <div class="w-full h-full px-8 flex flex-col justify-center">
               <div>
                 @foreach ($post->tags as $tag)

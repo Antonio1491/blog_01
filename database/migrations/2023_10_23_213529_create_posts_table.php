@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('slug');
-            $table->text('extract')->nullable;
+            $table->text('extract')->nullable; //el campo puede ser nulo
             $table->longText('body')->nullable;
             //status 1-> borrador, 2->publicado
             $table->enum('status', [1, 2])->default(1);

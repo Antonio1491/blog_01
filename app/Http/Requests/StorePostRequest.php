@@ -30,11 +30,12 @@ class StorePostRequest extends FormRequest
         $rules = [
             'name' => 'required',
             'slug' => 'required|unique:posts',
-            'status' => 'required|in:1,2'
+            'status' => 'required|in:1,2',
+            'file'=>'image'
         ];
 
         if($this->status == 2){
-            $rules == array_merge($rules,[
+            $rules = array_merge($rules,[
                 'category_id'=>'required',
                 'tags' => 'required',
                 'extract' => 'required',
