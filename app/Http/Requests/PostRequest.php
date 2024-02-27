@@ -3,8 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Mockery\Generator\Parameter;
 
-class StorePostRequest extends FormRequest
+// Esta clase contiene la validación de un controlador
+
+class PostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -12,12 +15,14 @@ class StorePostRequest extends FormRequest
     public function authorize(): bool
     {
         //revisar si el usuario coinside con el usuario auth y no se ha modificado desde el navegador
-        if ($this->user_id == auth()->user()->id){
-            return true;
-        }
-        else{
-            return false;
-        }
+        // if ($this->user_id == auth()->user()->id){
+        //     return true;
+        // }
+        // else{
+        //     return false;
+        // }
+        
+        return true;
     }
 
     /**
@@ -27,12 +32,20 @@ class StorePostRequest extends FormRequest
      */
     public function rules()
     {
+
+        $post = $this->route()->parameter( 'post' );  //recuperamos el post que estamos editando o creando
+
         $rules = [
             'name' => 'required',
             'slug' => 'required|unique:posts',
             'status' => 'required|in:1,2',
             'file'=>'image'
         ];
+
+        if($post)
+        {
+            $rules ['slug'] = 'required|unique:posts,slug,' . $post->id;
+        }
 
         if($this->status == 2){
             $rules = array_merge($rules,[
