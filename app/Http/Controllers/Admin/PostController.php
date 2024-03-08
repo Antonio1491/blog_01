@@ -76,6 +76,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        //hacemos referencia a la policy 
+        $this->authorize('author', $post);
+
         // genera un array tomando unicamente el campo name tomando como key el id
         $categories = Category::pluck('name', 'id');
         $tags = Tag::all();
@@ -88,6 +91,9 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
+         //hacemos referencia a la policy 
+         $this->authorize('author', $post);
+
         $post->update($request->all());
 
         if($request->file('file'))
@@ -113,7 +119,7 @@ class PostController extends Controller
         //información de las etiquetas asociadas al post
         if($request->tags){
             
-            $post->tags()->attach($request->tags);
+            $post->tags()->sync($request->tags);
         }
 
         return redirect()->route('admin.posts.edit', $post)->with('info', 'El post se actualizó con éxito');
@@ -124,6 +130,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+         //hacemos referencia a la policy 
+         $this->authorize('author', $post);
+         
+        $post->delete();
+
+        return redirect()->route('admin.posts.index', $post)->with('info', 'El post se eliminó con éxito');
     }
 }

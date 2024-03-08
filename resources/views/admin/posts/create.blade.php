@@ -11,7 +11,7 @@
         <div class="card-body">
             {!! Form::open(['route' => 'admin.posts.store', 'autocomplete' => 'off', 'files' => true]) !!}
 
-                {{-- Id del usuario --}}
+                Id del usuario
                 {!! Form::hidden('user_id', auth()->user()->id) !!}
 
                 @include('admin.posts.partials.form')
